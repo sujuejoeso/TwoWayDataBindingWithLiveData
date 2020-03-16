@@ -1,24 +1,25 @@
 package com.joeso.twowaydatabindingwithlivedata;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MyViewModel extends ViewModel {
-    MutableLiveData<User> userData =new MutableLiveData<>();
-    User user=new User();
+    MyRepository myRepository=MyRepository.getInstance();
+    public MutableLiveData<String> userName;
 
     public MyViewModel(){
-        userData.setValue(user);
+        userName=new MutableLiveData<>();
+        userName.setValue("");
     }
 
-    public MutableLiveData<User> getUserData() {
-        return userData;
+    public MutableLiveData<String> getUserName() {
+        return myRepository.getUserName();
     }
 
-    public void setUserData(String name) {
-        this.user.setName(name);
-        userData.setValue(user);
-    }
-
-
+//    public void setUserName(MutableLiveData<String> userName) {
+//        myRepository.setUserName(userName);
+//
+//    }
 }

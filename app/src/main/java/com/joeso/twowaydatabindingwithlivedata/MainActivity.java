@@ -2,6 +2,7 @@ package com.joeso.twowaydatabindingwithlivedata;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -24,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         mBinding.setLifecycleOwner(this);
         mBinding.setMViewModel(ViewModelProviders.of(this).get(MyViewModel.class));
 
-        mBinding.nameSet.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+        final MyRepository myRepository=MyRepository.getInstance();
 
-                mBinding.getMViewModel().setUserData(mBinding.nameSet.getText().toString());
-                return true;
+        mBinding.changeName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myRepository.getUserName().setValue(mBinding.newName.getText().toString());
             }
         });
 

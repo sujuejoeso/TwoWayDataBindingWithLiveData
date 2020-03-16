@@ -1,23 +1,33 @@
 package com.joeso.twowaydatabindingwithlivedata;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class MyRepository {
-    MutableLiveData<User> userData;
-    User user;
 
-    public MyRepository(){
-        user=new User();
-        userData=new MutableLiveData<>();
-        userData.setValue(user);
+    private static MyRepository INSTANCE;
+    private MutableLiveData<String> userName;
+
+    private MyRepository() {
+        userName=new MutableLiveData<>();
+        userName.setValue("");
     }
 
-    public MutableLiveData<User> getUserData() {
-        return userData;
+    public static MyRepository getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new MyRepository();
+        }
+        return INSTANCE;
     }
 
-    public void setUserData(MutableLiveData<User> userData) {
-        this.userData = userData;
+    public MutableLiveData<String> getUserName() {
+        return userName;
     }
+
+//    public void setUserName(MutableLiveData<String> userName) {
+//        this.userName = userName;
+//
+//    }
 }
